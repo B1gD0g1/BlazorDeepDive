@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerManagement", "ServerM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp", "ToDoApp\ToDoApp.csproj", "{1B841950-486D-4CA0-ABB2-2517CF7F9394}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssemblyDemo", "WebAssemblyDemo\WebAssemblyDemo\WebAssemblyDemo.csproj", "{8FF0CC5B-DB12-4430-BF63-41C070D8AE7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssemblyDemo.Client", "WebAssemblyDemo\WebAssemblyDemo.Client\WebAssemblyDemo.Client.csproj", "{55BF43C1-2107-4C7E-ABAA-60D5D4349595}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{1B841950-486D-4CA0-ABB2-2517CF7F9394}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B841950-486D-4CA0-ABB2-2517CF7F9394}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B841950-486D-4CA0-ABB2-2517CF7F9394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FF0CC5B-DB12-4430-BF63-41C070D8AE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FF0CC5B-DB12-4430-BF63-41C070D8AE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FF0CC5B-DB12-4430-BF63-41C070D8AE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FF0CC5B-DB12-4430-BF63-41C070D8AE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55BF43C1-2107-4C7E-ABAA-60D5D4349595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55BF43C1-2107-4C7E-ABAA-60D5D4349595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55BF43C1-2107-4C7E-ABAA-60D5D4349595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55BF43C1-2107-4C7E-ABAA-60D5D4349595}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
