@@ -1,12 +1,21 @@
+using Microsoft.EntityFrameworkCore;
 using ServerManagement.Components;
+using ServerManagement.Data;
+using ServerManagement.Models;
 using ServerManagement.StateStore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddDbContextFactory<ServerManagementContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ServerManagement"));
+});
 
-builder.Services.AddTransient<SessionStorage>();
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+//builder.Services.AddTransient<SessionStorage>();
 builder.Services.AddScoped<ContainerStorage>();
 builder.Services.AddScoped<TorontoOnlineServersStore>();
 builder.Services.AddScoped<MontrealOnlineServersStore>();
@@ -14,6 +23,7 @@ builder.Services.AddScoped<OttawaOnlineServersStore>();
 builder.Services.AddScoped<HalifaxOnlineServersStore>();
 builder.Services.AddScoped<CalgaryOnlineServersStore>();
 
+builder.Services.AddTransient<IServersEFCoreRepository, ServersEFCoreRepository>();
 
 var app = builder.Build();
 
@@ -30,6 +40,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().
+    AddInteractiveServerRenderMode();
 
 app.Run();

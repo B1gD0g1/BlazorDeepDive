@@ -1,11 +1,9 @@
-﻿
-<div class="input-group mb-3 input-width" @attributes="OtherAttributes">
+﻿<div class="input-group mb-3 input-width" @attributes=OtherAttributes>
     <input type="text" class="form-control" placeholder="Search Servers"
-            @bind-value="serverFilter"
-            @bind-value:event="oninput" />
+           @bind-value="serverFilter"
+           @bind-value:event="oninput" />
     <button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleSearch">Search</button>
 </div>
-
 
 @code {
 
@@ -22,13 +20,9 @@
 
     private string serverFilter = "";
 
-
     private void HandleSearch()
     {
-        //this.servers = ServersRepository.SearchServers(serverFilter);
-
-        //this.selectedCity = string.Empty;
         SearchServerCallback.InvokeAsync(serverFilter);
     }
-    
+
 }

@@ -2,23 +2,23 @@
 {
     public class Observer
     {
-        protected Action? _listners;
+        protected Action? _listeners;
 
-        public void AddStateChangeListeners(Action? listners)
+        public void AddStateChangeListeners(Action? listener)
         {
-            if (listners is not null)
-                _listners += listners;
+            if (listener is not null)
+                _listeners += listener;
         }
 
-        public void RemoveStateChangeListeners(Action? listners)
+        public void RemoveStateChangeListeners(Action? listener)
         {
-            if (listners is not null)
-                _listners -= listners;
+            if (listener is not null) 
+                _listeners -= listener;
         }
 
         public void BroadcastStateChange()
         {
-            _listners?.Invoke();
+            _listeners?.Invoke();
         }
     }
 }

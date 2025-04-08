@@ -17,7 +17,7 @@ namespace ServerManagement.StateStore
             var result = await this.protectedSessionStorage.GetAsync<Server>("server");
             if (result.Success)
                 return result.Value;
-            else
+            else 
                 return null;
         }
 

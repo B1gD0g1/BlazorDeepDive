@@ -1,4 +1,4 @@
-﻿@using ServerManagement.StateStore
+﻿﻿@using ServerManagement.StateStore
 
 @inject NavigationManager NavigationManager
 @inject TorontoOnlineServersStore TorontoOnlineServersStore
@@ -6,6 +6,7 @@
 @inject MontrealOnlineServersStore MontrealOnlineServersStore
 @inject HalifaxOnlineServersStore HalifaxOnlineServersStore
 @inject CalgaryOnlineServersStore CalgaryOnlineServersStore
+@inject IServersEFCoreRepository ServersEFCoreRepository
 
 
 @if (Server != null)
@@ -36,16 +37,16 @@
             @if (Server.IsOnline)
             {
                 <button type="button"
-                class="btn btn-outline-danger"
-                @onclick="@(()=> {SetServerStatus(false);})">
+                        class="btn btn-outline-danger"
+                        @onclick="@(()=> {SetServerStatus(false);})">
                     Turn Off
                 </button>
             }
             else
             {
                 <button type="button"
-                class="btn btn-outline-success"
-                @onclick="@(()=> {SetServerStatus(true);})">
+                        class="btn btn-outline-success"
+                        @onclick="@(()=> {SetServerStatus(true);})">
                     Turn On
                 </button>
             }
@@ -55,13 +56,12 @@
         </td>
         <td>
             <EditForm Model="Server"
-            FormName="@($"form-Server-{Server.ServerId}")"
-            OnValidSubmit="@(() => { DeleteServer(Server.ServerId); })">
+                      FormName="@($"form-Server-{Server.ServerId}")"
+                      OnValidSubmit="@(() => { DeleteServer(Server.ServerId); })">
                 <button type="submit" class="btn btn-primary">Delete</button>
             </EditForm>
         </td>
     </tr>
-
 }
 
 
@@ -77,7 +77,7 @@
     {
         if (serverId > 0)
         {
-            ServersRepository.DeleteServer(serverId);
+            ServersEFCoreRepository.DeleteServer(serverId);
             NavigationManager.NavigateTo("/servers", true);
         }
     }
@@ -101,6 +101,7 @@
         {
             return "white";
         }
+
     }
 
     private void SetServerStatus(bool status)
@@ -150,8 +151,10 @@
                 }
 
                 this.Server.IsOnline = status;
+
+                ServersEFCoreRepository.UpdateServer(this.Server.ServerId, Server);
             }
         }
-    }
 
+    }
 }

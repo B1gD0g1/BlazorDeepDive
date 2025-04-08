@@ -8,16 +8,14 @@
 @inject HalifaxOnlineServersStore HalifaxOnlineServersStore
 @inject CalgaryOnlineServersStore CalgaryOnlineServersStore
 
-
 <div class="col">
-    <div class="card @(selectedCity.Equals(city, StringComparison.OrdinalIgnoreCase) ? "border-primary" : "")">
+    <div class="card @(selectedCity.Equals(city, StringComparison.OrdinalIgnoreCase)?"border-primary":"")">
         <img src="@($"/images/{city}.png")" class="card-img-top" alt="...">
         <div class="card-body">
-            <button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">
-                @city
-            </button>
+            <button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">@city</button>
         </div>
-        <div>
+        <div>            
+
             @switch (city)
             {
                 case "Toronto":
@@ -37,12 +35,11 @@
                     break;
             }
         </div>
-
     </div>
+
 </div>
 
 @code {
-
     private int numberServersOnlineToronto;
     private int numberServersOnlineMontreal;
     private int numberServersOnlineCalgary;
@@ -58,10 +55,8 @@
     [Parameter]
     public EventCallback<string> SelectCityCallback { get; set; }
 
-
-
     private void SelectCity(string cityName)
-    {
+    {        
         SelectCityCallback.InvokeAsync(cityName);
     }
 
@@ -146,7 +141,7 @@
             case "Halifax":
                 HalifaxOnlineServersStore.RemoveStateChangeListeners(OnHalifaxServersStatusChange);
                 break;
-        }
+        }        
     }
 
 }

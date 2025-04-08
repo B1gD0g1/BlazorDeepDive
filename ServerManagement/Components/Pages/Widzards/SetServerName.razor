@@ -9,7 +9,7 @@
 @inject ContainerStorage containerStorage
 
 <h3>Server Name</h3>
-<br />
+<br/>
 
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
@@ -25,7 +25,7 @@
             <input type="text" @bind-value="server.Name" class="form-control"></input>
         </Control>
     </FieldComponent>
-    <br />
+    <br/>
     <button type="button" class="btn btn-primary" @onclick="GoNext">Next</button>
 }
 
@@ -34,7 +34,6 @@
     private Server? server;
 
     private string? errorMessage;
-
 
     protected override void OnInitialized()
     {
@@ -56,13 +55,13 @@
         {
             if (string.IsNullOrWhiteSpace(server.Name))
             {
-                this.errorMessage = "Server name is required.";
+                this.errorMessage = "Server Name is required.";
             }
             else
             {
                 containerStorage.SetServer(server);
                 NavigationManager.NavigateTo("/cityname");
-            }
+            }            
         }
     }
 

@@ -9,14 +9,13 @@
 @inject ContainerStorage containerStorage
 
 <h3>City Name</h3>
-<br />
+<br/>
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
     <div class="alert alert-danger">
         @errorMessage
     </div>
 }
-
 
 @if (server is not null)
 {
@@ -30,14 +29,9 @@
 }
 
 @code {
-
     private Server? server;
 
     private string? errorMessage;
-
-
-    [SupplyParameterFromQuery]
-    public string? ServerName { get; set; }
 
     protected override void OnInitialized()
     {
@@ -59,7 +53,7 @@
         {
             if (string.IsNullOrWhiteSpace(server.City))
             {
-                this.errorMessage = "City name is required.";
+                this.errorMessage = "City Name is required.";
             }
             else
             {

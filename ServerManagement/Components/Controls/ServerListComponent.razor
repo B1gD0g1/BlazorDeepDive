@@ -1,4 +1,8 @@
 ﻿
+@inherits BaseComponent
+
+@inject IServersEFCoreRepository ServersEFCoreRepository
+
 <table class="table table-striped">
     <RepeaterComponent Items="servers">
         <Header>
@@ -21,14 +25,11 @@
             </tr>
         </thead>
         </Header>
-
         <Row Context="server">
             <ServerComponent Server="server"></ServerComponent>
         </Row>
     </RepeaterComponent>
 </table>
-
-
 
 @code {
 
@@ -40,16 +41,68 @@
 
     private List<Server>? servers;
 
+    private System.Threading.Timer? Timer;
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        if (parameters.TryGetValue<string>("CityName", out var cityName))
+        {
+            if (cityName != CityName)
+            {
+                base.SetParametersAsync(parameters);
+            }
+        }
+
+        if (parameters.TryGetValue<string>("SearchFilter", out var searchFilter))
+        {
+            if (searchFilter != SearchFilter)
+            {
+                base.SetParametersAsync(parameters);
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+
     protected override void OnParametersSet()
     {
-        if (string.IsNullOrWhiteSpace(this.SearchFilter))
+        if (isFirstRender == false)
         {
-            servers = ServersRepository.GetServersByCity(CityName ?? "Toronto");
-        }
-        else
-        {
-            servers = ServersRepository.SearchServers(this.SearchFilter);
+            if (string.IsNullOrWhiteSpace(this.SearchFilter))
+            {
+                servers = ServersEFCoreRepository.GetServersByCity(CityName ?? "Toronto");
+            }
+            else
+            {
+                servers = ServersEFCoreRepository.SearchServers(this.SearchFilter);
+            }
         }
     }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            // Init here
+            if (string.IsNullOrWhiteSpace(this.SearchFilter))
+            {
+                servers = ServersEFCoreRepository.GetServersByCity(CityName ?? "Toronto");
+            }
+            else
+            {
+                servers = ServersEFCoreRepository.SearchServers(this.SearchFilter);
+            }
+
+            StateHasChanged();
+
+            Timer = new System.Threading.Timer(_ =>
+                {
+                    base.InvokeAsync(StateHasChanged);
+                }, null, 5000, 5000);
+        }
+    }
+
 
 }

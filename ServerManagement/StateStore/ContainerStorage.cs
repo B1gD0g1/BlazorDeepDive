@@ -4,7 +4,7 @@ namespace ServerManagement.StateStore
 {
     public class ContainerStorage
     {
-        private Server _server = new Server(); 
+        private Server _server = new Server();
 
         public Server GetServer() { return _server; }
 
